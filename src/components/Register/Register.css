@@ -1,0 +1,49 @@
+.register{
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container form{
+    border: 1px solid #a1a1a1;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.form-control{
+    border: unset;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control label{
+    font-size: var(--label);
+    font-weight: 600;
+}
+
+.form-control input{
+    border: 1px solid #a1a1a1;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 13px;
+    outline: none;
+}
+
+.container h3{
+    font-size: var(--heading-3) !important;
+    margin-bottom: 15px;
+    text-align: center !important;
+}
+
+.container span{
+    text-align: center;
+}
+
+.text-desc{
+    margin-top: 10px;
+    text-align: center;
+    font-size:var(--p);
+    font-weight: 600;
+    color: var(--grey);
+}

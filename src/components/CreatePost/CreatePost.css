@@ -1,0 +1,83 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* Modal box styling */
+.createPost-modal {
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+}
+
+.createPost-modal__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.createPost-modal__header h3{
+    font-size: var(--heading-2);
+    font-weight: 600;
+}
+
+.createPost-modal__body{
+    padding: 10px;
+}
+
+.createPost-modal__body input{
+    width: 100%;
+    border-radius: 2px;
+    outline: none;
+    border: 1px solid #a1a1a1;
+    margin: 4px 0px;
+    padding: 2px 10px;
+    font-size: var(--heading-4);
+}
+
+.createPost-modal__body .input_image{
+    border-radius: 2px !important;
+    font-size: var(--heading-4);
+}
+
+.createPost-modal__body textarea{
+    border: 1px solid #a1a1a1;
+    outline: none;
+    font-size: var(--heading-4);
+    border-radius: 2px;
+    width: 100%;
+    padding: 10px;
+}
+
+.createPost-modal__footer{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.createPost-modal__footer button{
+    width: 100%;
+}
+
+.close-btn {
+    background-color: transparent;
+    border: 1px solid #a1a1a1;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: #a1a1a1;
+}
+
+.post-btn {
+    background-color: #28a745;
+    color: white;
+}
