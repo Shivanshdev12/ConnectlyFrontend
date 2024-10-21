@@ -9,7 +9,9 @@ const postSlice = createSlice({
         addPost(state, action){
             state.title = action.payload.title;
             state.description = action.payload.description;
-            state.image = action.payload.image;
+        },
+        addImage(state,action){
+            state.image = action.payload.image
         }
     }
 });

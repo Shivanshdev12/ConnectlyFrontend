@@ -1,0 +1,29 @@
+.comment-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.replies{
+    padding-left: 15px;
+}
+
+.replies span{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.btn-reply{
+    font-size: 12px;
+    color: #a1a1a1;
+    cursor: pointer;
+}
+
+.reply-input input{
+    font-size: 12px;
+}
+
+.comments span{
+    margin: 5px 0px;
+    font-size: 12px;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "./Header.css";
 
 
@@ -7,7 +8,7 @@ const Header = ({isLoggedIn, onLogout}) => {
     return (
       <>
         <header>
-          <h1>Facebook</h1>
+          <h1>Connectly</h1>
           <nav>
             <ul>
               <li>
@@ -15,7 +16,7 @@ const Header = ({isLoggedIn, onLogout}) => {
                   <input type="text" placeholder="Search here..."/>
                 </div>
               </li>
-              <li><a href="/profile">Profile</a></li>
+              <li><Link to={"/profile"}>Profile</Link></li>
               <li><button onClick={onLogout}>Logout</button></li>
             </ul>
           </nav>

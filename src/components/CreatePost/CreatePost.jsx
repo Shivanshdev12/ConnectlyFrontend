@@ -17,13 +17,16 @@ const CreatePost = ({ open, handleModalOpen, handleModalClose, handleCreatePost 
                 ...postDetails,
                 [name]:value
             });
-        }else if(name === "image"){
-            setPostDetails({
-                ...postDetails,
-                "image":e.target.files[0]
-            })
         }
-        dispatch(postActions.addPost(postDetails));
+        const data = {
+            title:postDetails.title,
+            description:postDetails.description,
+        }
+        dispatch(postActions.addPost(data));
+    }
+    const handlePostImage=(e)=>{
+        const imageFile = e.target.files[0];
+        dispatch(postActions.addImage({"image":imageFile}))
     }
     if(open){
         return <div className="backdrop">
@@ -49,8 +52,7 @@ const CreatePost = ({ open, handleModalOpen, handleModalClose, handleCreatePost 
                     <input name="image" 
                         className="input_image" 
                         type="file" 
-                        // value={postDetails.image} 
-                        onChange={handleDetails} 
+                        onChange={handlePostImage} 
                     />
                 </div>
                 <div className="createPost-modal__footer">
