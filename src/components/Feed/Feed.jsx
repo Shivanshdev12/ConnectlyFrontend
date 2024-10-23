@@ -11,17 +11,21 @@ import { SlOptions } from "react-icons/sl";
 import { MdGroups } from "react-icons/md";
 import CreatePost from "../CreatePost/CreatePost";
 import { toast } from 'react-toastify';
-import "./Feed.css";
 import Comment from "../Comment/Comment";
 import { Link } from "react-router-dom";
 import { userActions } from "../../features/userSlice";
-import { getTimeDuration } from "../../utils/common";
+import { FidgetSpinner } from "react-loader-spinner";
+import "./Feed.css";
+import FollowList from "../FollowList/FollowList";
 
 const Feed=()=>{
 
     const dispatch = useDispatch();
     const postDetails = useSelector((state)=>state.posts);
     const userId = useSelector((state)=>state.users.userId);
+    const [loader, setLoader] = React.useState(false);
+    const [isClicked, setIsClicked] = React.useState(false);
+
     const [user, setUser] = React.useState({});
     const [posts, setPosts] = React.useState([{
             title:"",
@@ -34,18 +38,17 @@ const Feed=()=>{
     ]);
     const [open, setOpen] = React.useState(false);
     const [openMenu, setOpenMenu] = React.useState([]);
-    const [isClicked, setIsClicked] = React.useState(false);
     const [addComment, setAddComment] = React.useState([]);
+    const [openFollow, setOpenFollow] = React.useState(false);
 
-    const handleModalOpen=()=>{
-        setOpen(true);
-    }
+    const handleFollowModalOpen=()=>setOpenFollow(true);
+    const handleFollowModalClose=()=>setOpenFollow(false);
 
-    const handleModalClose=()=>{
-        setOpen(false);
-    }
+    const handleModalOpen=()=>setOpen(true);
+    const handleModalClose=()=>setOpen(false);
 
     const getPosts=()=>{
+        setLoader(true);
         apiClient.get(`${routes.POSTS.GET_POSTS}`)
         .then((res)=>{
             if(res.data.status === "success"){
@@ -56,6 +59,9 @@ const Feed=()=>{
         })
         .catch((err)=>{
             toast.error(err.response.data);
+        })
+        .finally(()=>{
+            setLoader(false);
         })
     }
 
@@ -68,7 +74,9 @@ const Feed=()=>{
             }
             setIsClicked(true);
         })
-        .catch((err)=>console.error(err));
+        .catch((err)=>{
+            toast.error(err.response.data);
+        });
     }
 
     const dislikeHandler=(e,postId="")=>{
@@ -76,9 +84,14 @@ const Feed=()=>{
             postId
         })
         .then((res)=>{
+            if(res.data.success === "success"){
+
+            }
             setIsClicked(true);
         })
-        .catch((err)=>console.error(err));
+        .catch((err)=>{
+            toast.error(err.response.data);
+        });
     }
 
     const commentHandler=(e,index)=>{
@@ -111,6 +124,7 @@ const Feed=()=>{
         if(postDetails.image){
             formData.append("image", postDetails.image);
         }
+        setLoader(true);
         apiClient.post(`${routes.POSTS.CREATE_POST}`,formData,{
             headers:{
                 "Content-Type":"multipart/form-data"
@@ -126,16 +140,22 @@ const Feed=()=>{
         .catch((err)=>{
             toast.error(err.response.data);
         })
+        .finally(()=>{
+            setLoader(false);
+        })
     }
 
     const getUser=()=>{
+        setLoader(true);
         apiClient.get(`${routes.AUTH.GET_USER}`)
         .then((res)=>{
             const {user} = res.data.data;
             setUser(user);
             dispatch(userActions.setUserState(user));
+            setLoader(false);
         })
         .catch((err)=>{
+            setLoader(false);
             toast.error(err.response.data);
         })
     }
@@ -149,14 +169,17 @@ const Feed=()=>{
     }
 
     const deleteHandler=(e,postId="")=>{
+        setLoader(true);
         apiClient.delete(`${routes.POSTS.DELETE_POST}/${postId}`)
         .then((res)=>{
             if(res.data.success){
                 toast.success(res.data.message);
                 setIsClicked(true);
+                setLoader(false);
             }
         })
         .catch((err)=>{
+            setLoader(false);
             toast.error(err.response.data);
         })
     }
@@ -167,6 +190,7 @@ const Feed=()=>{
         })
         .then((res)=>{
             if(res.data.success){
+                setIsClicked(true);
                 toast.success(res.data.message);
             }
         })
@@ -193,7 +217,7 @@ const Feed=()=>{
                     <ul>
                         <li className="avatar"><img src={user?.avatar}/> {user.firstName} {user.lastName}</li>
                         <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li><FaUserFriends/> Following</li>
+                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
                         <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
                         <li><MdGroups/> Groups</li>
                         <li><BiSolidMessageRounded/> Messages</li>
@@ -270,10 +294,29 @@ const Feed=()=>{
                 })}
             </div>
         </main>
+
         <CreatePost open={open} 
         handleCreatePost={handleCreatePost}
         handleModalOpen={handleModalOpen} 
         handleModalClose={handleModalClose} />
+
+        <FollowList open={openFollow}
+        handleModalOpen={handleFollowModalOpen}
+        handleModalClose={handleFollowModalClose} />
+
+        {loader && <div className="loader-backdrop">
+            <div className="loader">
+                <FidgetSpinner
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="fidget-spinner-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="fidget-spinner-wrapper"
+                    backgroundColor="#fff"
+                />
+            </div>
+        </div>}
     </React.Fragment>
 }
 

@@ -7,11 +7,11 @@ import Header from "./components/Header/Header";
 import Login from './components/Login/Login';
 import Feed from "./components/Feed/Feed";
 import Cookies from 'js-cookie';
+import SavedPost from "./components/SavedPost/SavedPost";
+import FollowList from "./components/FollowList/FollowList";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import SavedPost from "./components/SavedPost/SavedPost";
-import FollowList from "./components/FollowList/FollowList";
 
 const ProtectedRoute = ({ element }) => {
   const token = Cookies.get('accessToken');

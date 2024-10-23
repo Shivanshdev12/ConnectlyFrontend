@@ -122,7 +122,7 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
                 {addComment[index] && (
                     <div className="comments-container">
                         <input
-                            placeholder="Comment here"
+                            placeholder="Comment here..."
                             type="text"
                             value={commentTxt}
                             onChange={handleComment}

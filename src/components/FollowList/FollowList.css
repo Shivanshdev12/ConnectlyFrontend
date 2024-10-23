@@ -12,7 +12,7 @@
 }
 
 /* Modal box styling */
-.createPost-modal {
+.followList-modal {
     background-color: var(--ct-dark);
     padding: 20px;
     width: 400px;

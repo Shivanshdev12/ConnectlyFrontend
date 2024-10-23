@@ -31,11 +31,11 @@ const CreatePost = ({ open, handleModalOpen, handleModalClose, handleCreatePost 
     if(open){
         return <div className="backdrop">
             <div className="createPost-modal">
-                <div className="createPost-modal__header">
+                <div className="modal__header">
                     <h3>Create Post</h3>
                     <button className="close-btn" onClick={handleModalClose}>X</button>
                 </div>
-                <div className="createPost-modal__body">
+                <div className="modal__body">
                     <input name="title" 
                         value={postDetails.title} 
                         onChange={handleDetails} 
@@ -55,7 +55,7 @@ const CreatePost = ({ open, handleModalOpen, handleModalClose, handleCreatePost 
                         onChange={handlePostImage} 
                     />
                 </div>
-                <div className="createPost-modal__footer">
+                <div className="modal__footer">
                     <button onClick={handleCreatePost} className="btn btn-primary">Post</button>
                 </div>
             </div>

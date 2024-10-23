@@ -39,7 +39,7 @@ header li button{
 
 header .search input{
     border: 1px solid #a1a1a1;
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 3px 10px;
     font-size: 13px;
     outline: none;
