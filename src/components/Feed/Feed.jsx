@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import apiClient from "../../axiosConfig";
 import routes from "../../routes";
 import { FaUserFriends, FaBookmark, FaRegComment } from "react-icons/fa";
@@ -14,10 +14,14 @@ import { toast } from 'react-toastify';
 import "./Feed.css";
 import Comment from "../Comment/Comment";
 import { Link } from "react-router-dom";
+import { userActions } from "../../features/userSlice";
+import { getTimeDuration } from "../../utils/common";
 
 const Feed=()=>{
 
+    const dispatch = useDispatch();
     const postDetails = useSelector((state)=>state.posts);
+    const userId = useSelector((state)=>state.users.userId);
     const [user, setUser] = React.useState({});
     const [posts, setPosts] = React.useState([{
             title:"",
@@ -51,7 +55,7 @@ const Feed=()=>{
             }
         })
         .catch((err)=>{
-            console.error(err);
+            toast.error(err.response.data);
         })
     }
 
@@ -95,7 +99,7 @@ const Feed=()=>{
                 }
             })
             .catch((err)=>{
-                console.error(err);
+                toast.error(err.response.data);
             })
     }
 
@@ -120,7 +124,7 @@ const Feed=()=>{
             }
         })
         .catch((err)=>{
-            console.error(err);
+            toast.error(err.response.data);
         })
     }
 
@@ -129,9 +133,10 @@ const Feed=()=>{
         .then((res)=>{
             const {user} = res.data.data;
             setUser(user);
+            dispatch(userActions.setUserState(user));
         })
         .catch((err)=>{
-            console.error(err);
+            toast.error(err.response.data);
         })
     }
 
@@ -152,7 +157,21 @@ const Feed=()=>{
             }
         })
         .catch((err)=>{
-            console.error(err);
+            toast.error(err.response.data);
+        })
+    }
+
+    const followUserHandler=(e,userToFollowId)=>{
+        apiClient.post(`${routes.AUTH.FOLLOW_USER}`,{
+            userToFollowId
+        })
+        .then((res)=>{
+            if(res.data.success){
+                toast.success(res.data.message);
+            }
+        })
+        .catch((err)=>{
+            toast.error(err.response.data);
         })
     }
 
@@ -174,7 +193,7 @@ const Feed=()=>{
                     <ul>
                         <li className="avatar"><img src={user?.avatar}/> {user.firstName} {user.lastName}</li>
                         <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li><FaUserFriends/> Followers</li>
+                        <li><FaUserFriends/> Following</li>
                         <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
                         <li><MdGroups/> Groups</li>
                         <li><BiSolidMessageRounded/> Messages</li>
@@ -199,7 +218,15 @@ const Feed=()=>{
                                     {post.userId?.firstName && post.userId?.lastName ? (
                                         <>
                                             <p>
-                                                {post.userId.firstName} {post.userId.lastName} : <span>Follow</span>
+                                                {post.userId.firstName} {post.userId.lastName}
+                                                {post.userId._id !== userId._id ? (
+                                                    // Check if the post user is already in the current user's following list
+                                                    userId.following.includes(post.userId._id) ? (
+                                                        <span> : Following</span>
+                                                    ) : (
+                                                        <span onClick={(e) => followUserHandler(e, post.userId._id)}> : Follow</span>
+                                                    )
+                                                ) : null}
                                             </p>
                                         </>
                                     ) : (
@@ -210,8 +237,10 @@ const Feed=()=>{
                                     <SlOptions />
                                     {openMenu[index] && <div className="posts-menu">
                                         <ul>
+                                            <li className="error">Report</li>
                                             <li onClick={(e)=>deleteHandler(e,post._id)}>Delete</li>
                                             <li>Edit</li>
+                                            <li>Cancel</li>
                                         </ul>
                                     </div>}
                                 </div>

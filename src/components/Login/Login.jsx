@@ -62,6 +62,9 @@ const Login=({isLoggedIn, handleLogIn})=>{
                         <input type="password" name="password" id="password" value={login.password} onChange={handleChange} />
                     </div>
                     <div className="form-control">
+                        <Link>Forgot Password?</Link>
+                    </div>
+                    <div className="form-control">
                         <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
                     </div>
                 </form>

@@ -3,7 +3,8 @@ const routes = {
         LOGIN:"/users/login",
         REGISTER:"/users/register",
         GET_USER:"/users/getUser",
-        ADD_COVER_IMAGE:"/users/add-cover-image"
+        ADD_COVER_IMAGE:"/users/add-cover-image",
+        FOLLOW_USER:"/users/follow-user"
     },
     POSTS:{
         GET_USER_POSTS:"/posts/get-user-posts",

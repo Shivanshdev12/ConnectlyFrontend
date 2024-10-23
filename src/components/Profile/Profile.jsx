@@ -1,10 +1,8 @@
 import * as React from "react";
 import apiClient from "../../axiosConfig";
-import { FaPencilAlt, FaCamera, FaRegComment } from "react-icons/fa";
+import { FaPencilAlt, FaCamera } from "react-icons/fa";
 import routes from "../../routes";
 import "./Profile.css";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { IoBookmarkOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 
@@ -12,6 +10,8 @@ const Profile = () => {
     const [user, setUser] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([]);
     const [coverImage, setCoverImage] = React.useState("");
+    const [isClicked, setIsClicked] = React.useState(false);
+
     const getUserDetails = () => {
         apiClient.get(`${routes.AUTH.GET_USER}`)
             .then((res) => {
@@ -23,6 +23,7 @@ const Profile = () => {
                 console.log(err);
             })
     }
+
     const getUserPosts=()=>{
         apiClient.get(`${routes.POSTS.GET_USER_POSTS}`)
         .then((res)=>{
@@ -37,10 +38,32 @@ const Profile = () => {
     }
 
     const updateCoverImageHandler=(e)=>{
+        const formData = new FormData();
+        formData.append("coverImage", e.target.files[0]);
+        apiClient.post(`${routes.AUTH.ADD_COVER_IMAGE}`,formData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        })
+        .then((res)=>{
+            if(res.data.success){
+                setIsClicked(true);
+                toast.success(res.data.message);
+            }
+        })
+        .catch((err)=>{
+            console.error(err);
+        })
     }
 
-    React.useEffect(() => {
+    React.useEffect(()=>{
         getUserDetails();
+        return ()=>{
+            setIsClicked(false);
+        }
+    },[isClicked]);
+
+    React.useEffect(() => {
         getUserPosts();
     }, []);
 
@@ -53,14 +76,7 @@ const Profile = () => {
                     </div> */}
                     <div className="coverImage" style={{
                         backgroundImage: user.coverImage ? `url(${user.coverImage})` : "none",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
                     }}>
-                        {!user.coverImage && (
-                            <div style={{ textAlign: "center" }}>
-                                <p>No Cover Image uploaded</p>
-                            </div>
-                        )}
                         <div className="custom-file-input">
                             <input onChange={updateCoverImageHandler} type="file" id="file-input" name="coverImage" />
                             <label htmlFor="file-input" className="custom-upload-btn"><FaCamera /> Edit Cover Image</label>
@@ -71,10 +87,12 @@ const Profile = () => {
                     <div className="profile">
                         <div className="profile_img">
                             <img src={user.avatar} alt={user.firstName} />
+                            <button className="btn btn-primary"><FaPencilAlt /></button>
                         </div>
                         <div>
                             <h1>{user.firstName} {user.lastName}</h1>
-                            <button className="btn btn-primary"><FaPencilAlt /> Edit Profile</button>
+                            <p>Followers: {!user.follower ? 0 : user.follower}</p>
+                            <p>Following: {!user.following ? 0 : user.following}</p>
                         </div>
                     </div>
                 </div>

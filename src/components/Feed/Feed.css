@@ -1,7 +1,13 @@
 main{
     display: grid;
-    grid-template-columns: 1fr 4fr;
-    margin-top: 20px;
+    grid-template-columns: 0.75fr 4fr;
+    gap: 10px;
+    /* margin-top: 20px; */
+}
+
+.container.side_menu{
+    padding-top: 20px;
+    border-right: 1px solid #a1a1a161;
 }
 
 .container__side ul{
@@ -57,6 +63,7 @@ main{
 
 .container .posts-user p{
     margin-bottom: unset !important;
+    font-weight: 600;
 }
 
 .post-options{
@@ -113,6 +120,7 @@ main{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top: 20px;
 }
 
 .posts .posts-desc p{

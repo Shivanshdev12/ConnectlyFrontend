@@ -8,6 +8,7 @@ import "../Feed/Feed.css";
 const Comment = ({ post, addComment, index, onCommentAdded }) => {
     const [commentTxt, setCommentTxt] = React.useState("");
     const [canReply, setCanReply] = React.useState([]);  // Initialize canReply as an empty array
+    const [showReply, setShowReply] = React.useState([]);
 
     const handleComment = (e) => {
         setCommentTxt(e.target.value);
@@ -50,10 +51,19 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
         });
     };
 
+    const showReplies = (commentIndex)=>{
+        setShowReply((prevState)=>{
+            const newState = [...prevState];
+            newState[commentIndex] = !newState[commentIndex];
+            return newState
+        });
+    }
+
     // Set the canReply array to track replies visibility
     React.useEffect(() => {
         if (post && post.comments) {
             setCanReply(new Array(post.comments.length).fill(false));
+            setShowReply(new Array(post.comments.length).fill(false));
         }
     }, [post.comments]);
 
@@ -66,14 +76,21 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
                         return (
                             <div className="comment" key={commentIndex}>
                                 <div className="comment-bar">
-                                    <span>{comment.comments}</span>
-                                    <span className="btn-reply" onClick={() => replyHandler(commentIndex)}>Reply</span>
+                                    <div>
+                                        <img className="comment-bar__avatar" src={comment.userId.avatar} alt="" />
+                                        <span>{comment.comments}</span>
+                                    </div>
+                                    <div className="dflex alignCenter justifyCenter" style={{gap:"10px"}}>
+                                        <span className="btn-reply" onClick={() => showReplies(commentIndex)}>{showReply[commentIndex] ? "Hide Replies" : "Show Replies"}</span>
+                                        <span className="btn-reply" onClick={() => replyHandler(commentIndex)}>Reply</span>
+                                    </div>
                                 </div>
 
-                                {Array.isArray(comment.replies) && comment.replies.length > 0 && (
+                                {showReply[commentIndex] && Array.isArray(comment.replies) && comment.replies.length > 0 && (
                                     <div className="replies">
                                         {comment.replies.map((reply, replyIndex) => (
                                             <div className="reply" key={replyIndex}>
+                                                <img className="reply__avatar" src={reply.userId.avatar} alt="" />
                                                 <span>{reply.comments}</span>
                                             </div>
                                         ))}
