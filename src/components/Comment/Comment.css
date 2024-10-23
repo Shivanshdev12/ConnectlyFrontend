@@ -30,6 +30,8 @@
 
 .reply-input input{
     font-size: 12px;
+    background-color: transparent;
+    color: var(--white);
 }
 
 .comments span{

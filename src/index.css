@@ -13,13 +13,28 @@
   --grey:#555;
   --light:#a1a1a1;
   --white:#fff;
+  --ct-dark:#0f0f0f;
   --text-primary:#1f1f1f;
+}
+
+#root{
+  height: 100%;
+}
+
+header{
+  height: 10vh;
+}
+
+main{
+  height: 90vh;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
+  background-color: var(--ct-dark);
+  color: var(--white);
 }
 
 .btn-primary{
@@ -28,7 +43,7 @@ body {
 }
 
 .error{
-  color: var(--danger);
+  color: var(--danger) !important;
 }
 
 .btn-trans{

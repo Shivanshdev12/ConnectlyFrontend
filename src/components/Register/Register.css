@@ -15,11 +15,13 @@
     border: unset;
     display: flex;
     flex-direction: column;
+    background-color: transparent;
 }
 
 .form-control label{
     font-size: var(--label);
     font-weight: 600;
+    color: var(--white);
 }
 
 .form-control input{
@@ -28,6 +30,10 @@
     padding: 3px 8px;
     font-size: 13px;
     outline: none;
+}
+
+.form-control input[type="file"]{
+    color: var(--white);
 }
 
 .container h3{

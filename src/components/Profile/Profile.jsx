@@ -87,12 +87,12 @@ const Profile = () => {
                     <div className="profile">
                         <div className="profile_img">
                             <img src={user.avatar} alt={user.firstName} />
-                            <button className="btn btn-primary"><FaPencilAlt /></button>
+                            <button htmlFor="avatar-input" className="btn btn-primary"><FaPencilAlt /></button>
                         </div>
                         <div>
                             <h1>{user.firstName} {user.lastName}</h1>
-                            <p>Followers: {!user.follower ? 0 : user.follower}</p>
-                            <p>Following: {!user.following ? 0 : user.following}</p>
+                            <p>Followers : {!user.follower ? 0 : user.follower.length}</p>
+                            <p>Following : {!user.following ? 0 : user.following.length}</p>
                         </div>
                     </div>
                 </div>

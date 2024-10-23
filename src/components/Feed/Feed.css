@@ -2,7 +2,6 @@ main{
     display: grid;
     grid-template-columns: 0.75fr 4fr;
     gap: 10px;
-    /* margin-top: 20px; */
 }
 
 .container.side_menu{
@@ -24,12 +23,12 @@ main{
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    color: #1f1f1f;
+    color: var(--white);
 }
 
 .container__side li a{
     text-decoration: none;
-    color: #1f1f1f;
+    color: var(--white);
 }
 
 .container__side li svg{
@@ -102,6 +101,7 @@ main{
 
 .container .posts-menu li{
     font-size: 12px;
+    color: var(--ct-dark);
 }
 
 .container .posts-profile{
@@ -153,6 +153,7 @@ main{
     background-color: transparent;
     border: none;
     font-size: var(--button);
+    color: var(--white);
 }
 
 .comments input{
@@ -163,11 +164,12 @@ main{
     border: none;
     outline: none;
     font-size: var(--p);
+    background-color: transparent;
+    color: var(--white);
 }
 
 .comments-container{
     display: flex;
-    border: 1px solid #a1a1a1;
     border-radius: 5px;
     padding: 2px 8px;
 }

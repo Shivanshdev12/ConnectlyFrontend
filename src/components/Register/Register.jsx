@@ -52,7 +52,9 @@ const Register = () => {
                     router("/login");
                 }
             })
-            .catch((err) => console.error(err));
+            .catch((err)=>{
+                toast.error(err.response.data);
+            });
     }
     return <>
         <div className="container register">

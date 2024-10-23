@@ -13,7 +13,7 @@
 
 /* Modal box styling */
 .createPost-modal {
-    background-color: white;
+    background-color: var(--ct-dark);
     padding: 20px;
     width: 400px;
     border-radius: 8px;
@@ -43,6 +43,8 @@
     margin: 4px 0px;
     padding: 2px 10px;
     font-size: var(--heading-4);
+    background-color:transparent;
+    color: var(--white);
 }
 
 .createPost-modal__body .input_image{
@@ -57,6 +59,8 @@
     border-radius: 2px;
     width: 100%;
     padding: 10px;
+    background-color:transparent;
+    color: var(--white);
 }
 
 .createPost-modal__footer{

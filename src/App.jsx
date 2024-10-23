@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import SavedPost from "./components/SavedPost/SavedPost";
+import FollowList from "./components/FollowList/FollowList";
 
 const ProtectedRoute = ({ element }) => {
   const token = Cookies.get('accessToken');
@@ -44,6 +45,7 @@ function App() {
           <Route path='/feed' element={<ProtectedRoute element={<Feed/>}/>}></Route>
           <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}></Route>
           <Route path="/saved" element={<ProtectedRoute element={<SavedPost/>}/>}></Route>
+          <Route path="/following" element={<ProtectedRoute element={<FollowList/>}></ProtectedRoute>}></Route>
         </Route>
       </Routes>
       <ToastContainer />
