@@ -13,7 +13,7 @@ const Header = ({isLoggedIn, onLogout}) => {
             <ul>
               <li>
                 <div className="search">
-                  <input type="text" placeholder="Search here..."/>
+                  <input type="text" placeholder="🔍 Search here..."/>
                 </div>
               </li>
               <li><Link to={"/profile"}>Profile</Link></li>

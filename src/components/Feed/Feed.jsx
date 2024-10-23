@@ -295,14 +295,14 @@ const Feed=()=>{
             </div>
         </main>
 
-        <CreatePost open={open} 
+        {open && <CreatePost open={open} 
         handleCreatePost={handleCreatePost}
         handleModalOpen={handleModalOpen} 
-        handleModalClose={handleModalClose} />
+        handleModalClose={handleModalClose} />}
 
-        <FollowList open={openFollow}
+        {openFollow && <FollowList open={openFollow}
         handleModalOpen={handleFollowModalOpen}
-        handleModalClose={handleFollowModalClose} />
+        handleModalClose={handleFollowModalClose} />}
 
         {loader && <div className="loader-backdrop">
             <div className="loader">

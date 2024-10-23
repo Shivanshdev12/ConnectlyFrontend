@@ -38,12 +38,17 @@ header li button{
 }
 
 header .search input{
+    background-color: transparent;
     border: 1px solid #a1a1a1;
     border-radius: 2px;
     padding: 3px 10px;
     font-size: 13px;
     outline: none;
     width: 250px;
+}
+
+header .search input::placeholder{
+    color: var(--text-placeholder);
 }
 
 @media screen and (max-width:768px) {

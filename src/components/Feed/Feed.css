@@ -168,6 +168,10 @@ main{
     color: var(--white);
 }
 
+.comments input::placeholder{
+    color: var(--text-placeholder);
+}
+
 .comments-container{
     display: flex;
     border-radius: 5px;

@@ -4,7 +4,8 @@ const routes = {
         REGISTER:"/users/register",
         GET_USER:"/users/getUser",
         ADD_COVER_IMAGE:"/users/add-cover-image",
-        FOLLOW_USER:"/users/follow-user"
+        FOLLOW_USER:"/users/follow-user",
+        GET_FOLLOWING_USER:"/users/get-following-list",
     },
     POSTS:{
         GET_USER_POSTS:"/posts/get-user-posts",

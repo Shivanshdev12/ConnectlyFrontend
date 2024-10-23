@@ -15,6 +15,7 @@
   --white:#fff;
   --ct-dark:#0f0f0f;
   --text-primary:#1f1f1f;
+  --text-placeholder:#ffffffb0;
 }
 
 #root{
@@ -49,6 +50,7 @@ body {
 .btn-trans{
   background-color: var(--light);
   color: white;
+  font-size: var(--p);
 }
 
 .dflex{
@@ -73,7 +75,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,6 +100,25 @@ body {
 .modal__header h3{
   font-size: var(--heading-2);
   font-weight: 600;
+}
+
+.modal__body .modal__list img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--light);
+  margin-right: 4px;
+}
+
+.modal__list{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+
+.modal__list p{
+  margin-bottom: unset;
+  font-size: var(--p);
 }
 
 .modal__body input{
