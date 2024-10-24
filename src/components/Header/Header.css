@@ -10,6 +10,10 @@ header{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.header__menu{
+    display: none;
+}
+
 header ul{
     display: flex;
     justify-content: space-between;
@@ -41,15 +45,28 @@ header li button{
     color: var(--white);
 }
 
+header .search{
+    display: flex;
+    border: 1px solid #a1a1a1;
+    border-radius: 20px;
+    padding:0px 10px;
+}
+
+/* header .search .search__icon{
+    background-color: #222;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+} */
+
 header .search input{
     background-color: transparent;
-    border: 1px solid #a1a1a1;
-    border-radius: 2px;
+    border: unset;
     padding: 3px 10px;
     font-size: 13px;
     outline: none;
     width: 250px;
     color: var(--white);
+    border-right: 1px solid #a1a1a1;
 }
 
 header .search input::placeholder{
@@ -62,8 +79,8 @@ header .notifications{
 
 header .notifications::after{
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     left: 50%;
     top: 50%;
     transform: translate(50%,50%);
@@ -72,8 +89,30 @@ header .notifications::after{
     content:""
 }
 
+header .avatar img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #f1f1f1;
+}
+
 @media screen and (max-width:768px) {
-    header .search input{
+    header{
+        grid-template-columns:0.25fr 1fr 1.25fr;
+        padding: 10px 20px;
+    }
+    header .search{
         display: none;
+    }
+    header h1{
+        font-size: var(--heading-1);
+        margin-bottom: unset;
+    }
+    .header__profile, .header__logout{
+        display: none;
+    }
+    .header__menu{
+        display: block;
+        cursor: pointer;
     }
 }

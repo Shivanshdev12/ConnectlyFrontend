@@ -201,4 +201,24 @@ main{
     main{
         grid-template-columns: unset;
     }
+    .container.side_menu{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85) !important;
+        z-index: 100;
+        padding: unset;
+        border: unset;
+    }
+    .container__side{
+        position: absolute;
+        height: 100%;
+        width: fit-content;
+        background-color: var(--ct-dark);
+    }
+    .container__side-header{
+        border-bottom: 1px solid var(--light);
+    }
 }
