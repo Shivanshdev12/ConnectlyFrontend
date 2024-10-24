@@ -56,6 +56,22 @@ header .search input::placeholder{
     color: var(--text-placeholder);
 }
 
+header .notifications{
+    position: relative;
+}
+
+header .notifications::after{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    left: 50%;
+    top: 50%;
+    transform: translate(50%,50%);
+    background-color: var(--danger);
+    border-radius: 50%;
+    content:""
+}
+
 @media screen and (max-width:768px) {
     header .search input{
         display: none;

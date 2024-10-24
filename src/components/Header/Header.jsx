@@ -19,7 +19,7 @@ const Header = ({isLoggedIn, onLogout}) => {
                   <input type="text" placeholder="🔍 Search here..."/>
                 </div>
               </li>
-              <li>
+              <li className="notifications">
                 <IoIosNotifications/>
               </li>
               <li><Link to={"/profile"}>

@@ -4,17 +4,20 @@ import routes from "../../routes";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { FidgetSpinner } from "react-loader-spinner";
 import "./Register.css";
 
 const Register = () => {
     const router = useNavigate();
     const [avatar, setAvatar] = React.useState(null);
+    const [loader, setLoader] = React.useState(false);
     const [login, setLogin] = React.useState({
         fname: "",
         lname: "",
         email: "",
         password: ""
     });
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setLogin({
@@ -37,6 +40,8 @@ const Register = () => {
         if(avatar){
             formData.append("avatar", avatar);
         }
+        setLoader(true);
+
         formData.append("firstName", data.firstName);
         formData.append("lastName", data.lastName);
         formData.append("email", data.email);
@@ -46,15 +51,18 @@ const Register = () => {
                 "Content-Type":"multipart/form-data"
             }
         })
-            .then((res) => {
-                if (res.data.status === "success") {
-                    toast.success(res.data.message);
-                    router("/login");
-                }
-            })
-            .catch((err)=>{
-                toast.error(err.response.data);
-            });
+        .then((res) => {
+            if (res.data.status === "success") {
+                toast.success(res.data.message);
+                router("/login");
+            }
+        })
+        .catch((err)=>{
+            toast.error(err.response.data);
+        })
+        .finally(()=>{
+            setLoader(false);
+        })
     }
     return <>
         <div className="container register">
@@ -88,6 +96,19 @@ const Register = () => {
                 <p className="text-desc">Already have an account ? <Link to={"/login"}>Login</Link></p>
             </div>
         </div>
+        {loader && <div className="loader-backdrop">
+            <div className="loader">
+                <FidgetSpinner
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="fidget-spinner-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="fidget-spinner-wrapper"
+                    backgroundColor="#fff"
+                />
+            </div>
+        </div>}
     </>
 }
 

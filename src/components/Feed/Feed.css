@@ -73,6 +73,7 @@ main{
     font-size: var(--heading-4) !important;
     color: var(--primary) !important;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .container .posts-user img{

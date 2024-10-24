@@ -5,10 +5,12 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
+import { FidgetSpinner } from "react-loader-spinner";
 import "./Login.css";
 
 const Login=({isLoggedIn, handleLogIn})=>{
     const navigate = useNavigate();
+    const [loader, setLoader] = React.useState(false);
     const [login, setLogin] = React.useState({
         email:"",
         password:""
@@ -71,6 +73,19 @@ const Login=({isLoggedIn, handleLogIn})=>{
                 <p className="text-desc">New User ? <Link to={"/register"}>Create a new account</Link></p>
             </div>
         </div>
+        {loader && <div className="loader-backdrop">
+            <div className="loader">
+                <FidgetSpinner
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="fidget-spinner-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="fidget-spinner-wrapper"
+                    backgroundColor="#fff"
+                />
+            </div>
+        </div>}
     </>
 }
 
