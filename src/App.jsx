@@ -9,9 +9,12 @@ import Feed from "./components/Feed/Feed";
 import Cookies from 'js-cookie';
 import SavedPost from "./components/SavedPost/SavedPost";
 import FollowList from "./components/FollowList/FollowList";
-import { ToastContainer } from 'react-toastify';
+import { useNavigate } from "react-router";
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import apiClient from "./axiosConfig";
+import routes from "./routes";
 
 const ProtectedRoute = ({ element }) => {
   const token = Cookies.get('accessToken');
@@ -20,9 +23,20 @@ const ProtectedRoute = ({ element }) => {
 
 function App() {
   const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    Cookies.remove('accessToken');  
+    apiClient.post(`${routes.AUTH.LOGOUT}`,{},{withCredentials:true})
+    .then((res)=>{
+      if(res.data.success){
+        Cookies.remove("accessToken");
+        toast.success(res.data.message);
+        navigate("/login");
+      }
+    })
+    .catch((err)=>{
+      toast.error(err.response.data);
+    })
     setLoggedIn(false); 
   };
 

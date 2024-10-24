@@ -2,6 +2,7 @@ const routes = {
     AUTH:{
         LOGIN:"/users/login",
         REGISTER:"/users/register",
+        LOGOUT:"/users/logout",
         GET_USER:"/users/getUser",
         ADD_COVER_IMAGE:"/users/add-cover-image",
         FOLLOW_USER:"/users/follow-user",

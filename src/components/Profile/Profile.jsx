@@ -13,7 +13,7 @@ const Profile = () => {
     const [isClicked, setIsClicked] = React.useState(false);
 
     const getUserDetails = () => {
-        apiClient.get(`${routes.AUTH.GET_USER}`)
+        apiClient.get(`${routes.AUTH.GET_USER}`,{withCredentials:true})
             .then((res) => {
                 const { user } = res.data.data;
                 setUser(user);
@@ -25,7 +25,7 @@ const Profile = () => {
     }
 
     const getUserPosts=()=>{
-        apiClient.get(`${routes.POSTS.GET_USER_POSTS}`)
+        apiClient.get(`${routes.POSTS.GET_USER_POSTS}`,{withCredentials:true})
         .then((res)=>{
             if(res.data.success){
                 setUserPosts(res.data.data.userPosts);
@@ -43,7 +43,8 @@ const Profile = () => {
         apiClient.post(`${routes.AUTH.ADD_COVER_IMAGE}`,formData,{
             headers:{
                 "Content-Type":"multipart/form-data"
-            }
+            },
+            withCredentials:true
         })
         .then((res)=>{
             if(res.data.success){

@@ -49,7 +49,7 @@ const Feed=()=>{
 
     const getPosts=()=>{
         setLoader(true);
-        apiClient.get(`${routes.POSTS.GET_POSTS}`)
+        apiClient.get(`${routes.POSTS.GET_POSTS}`,{withCredentials:true})
         .then((res)=>{
             if(res.data.status === "success"){
                 setPosts(res.data.data.posts);
@@ -68,7 +68,8 @@ const Feed=()=>{
     const likeHandler=(e,postId="")=>{
         apiClient.post(`${routes.POSTS.LIKE_POST}`,{
             postId
-        })
+        },
+        {withCredentials:true})
         .then((res)=>{
             if(res.data.success === "success"){
             }
@@ -82,7 +83,8 @@ const Feed=()=>{
     const dislikeHandler=(e,postId="")=>{
         apiClient.post(`${routes.POSTS.DISLIKE_POST}`,{
             postId
-        })
+        },
+        {withCredentials:true})
         .then((res)=>{
             if(res.data.success === "success"){
 
@@ -105,7 +107,8 @@ const Feed=()=>{
     const savePostHandler=async (e,postId)=>{
             await apiClient.post(`${routes.POSTS.SAVE_POST}`,{
                 postId
-            })
+            },
+            {withCredentials:true})
             .then((res)=>{
                 if(res.data.success){
                     toast.success(res.data.message);
@@ -128,7 +131,8 @@ const Feed=()=>{
         apiClient.post(`${routes.POSTS.CREATE_POST}`,formData,{
             headers:{
                 "Content-Type":"multipart/form-data"
-            }
+            },
+            withCredentials:true
         })
         .then((res)=>{
             if(res.data.status === "success"){
@@ -147,7 +151,7 @@ const Feed=()=>{
 
     const getUser=()=>{
         setLoader(true);
-        apiClient.get(`${routes.AUTH.GET_USER}`)
+        apiClient.get(`${routes.AUTH.GET_USER}`,{withCredentials:true})
         .then((res)=>{
             const {user} = res.data.data;
             setUser(user);
@@ -170,7 +174,9 @@ const Feed=()=>{
 
     const deleteHandler=(e,postId="")=>{
         setLoader(true);
-        apiClient.delete(`${routes.POSTS.DELETE_POST}/${postId}`)
+        apiClient.delete(`${routes.POSTS.DELETE_POST}/${postId}`,{
+            withCredentials:true
+        })
         .then((res)=>{
             if(res.data.success){
                 toast.success(res.data.message);
@@ -187,7 +193,8 @@ const Feed=()=>{
     const followUserHandler=(e,userToFollowId)=>{
         apiClient.post(`${routes.AUTH.FOLLOW_USER}`,{
             userToFollowId
-        })
+        },
+        {withCredentials:true})
         .then((res)=>{
             if(res.data.success){
                 setIsClicked(true);

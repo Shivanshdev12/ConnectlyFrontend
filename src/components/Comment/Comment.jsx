@@ -19,7 +19,7 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
             postId,
             commentBody: commentTxt
         };
-        apiClient.post(`${routes.POSTS.ADD_COMMENT}`, data)
+        apiClient.post(`${routes.POSTS.ADD_COMMENT}`, data, {withCredentials:true})
             .then(() => {
                 setCommentTxt("");  // Clear the input after adding a comment
                 onCommentAdded();   // Trigger re-fetch or re-render to display the new comment
@@ -33,7 +33,7 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
         const data = {
             reply: commentTxt
         };
-        apiClient.post(`${routes.COMMENTS.REPLY_COMMENT}/${commentId}`, data)
+        apiClient.post(`${routes.COMMENTS.REPLY_COMMENT}/${commentId}`, data, {withCredentials:true})
             .then(() => {
                 setCommentTxt("");  // Clear the input after replying
                 onCommentAdded();   // Trigger re-fetch or re-render to display the new reply

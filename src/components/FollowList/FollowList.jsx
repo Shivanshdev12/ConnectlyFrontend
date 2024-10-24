@@ -10,7 +10,7 @@ const FollowList=({open, handleModalOpen, handleModalClose})=>{
     const [followingList, setFollowingList] = React.useState([]);
 
     const getFollowingforUser=()=>{
-        apiClient.get(`${routes.AUTH.GET_FOLLOWING_USER}`)
+        apiClient.get(`${routes.AUTH.GET_FOLLOWING_USER}`,{withCredentials:true})
         .then((res)=>{
             if(res.data.success){
                 const {followingList} = res.data.data;

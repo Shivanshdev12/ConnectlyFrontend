@@ -1,6 +1,6 @@
 header{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 1.25fr;
     align-items: center;
     justify-content: space-between;
     padding:5px 20px;
@@ -20,10 +20,14 @@ header ul{
 
 header ul li{
     list-style: none;
-    font-size: var(--p);
+    font-size: 22px;
     display: flex;
     align-items: center;
     color: var(--white);
+}
+
+header li svg{
+    font-size: 24px;
 }
 
 header li a{
@@ -45,6 +49,7 @@ header .search input{
     font-size: 13px;
     outline: none;
     width: 250px;
+    color: var(--white);
 }
 
 header .search input::placeholder{
