@@ -4,9 +4,11 @@ import { AiFillProfile } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { IoIosLogOut } from "react-icons/io";
 import "./Header.css";
+import useNotifications from '../../hooks/useNotifications';
 
 
 const Header = ({isLoggedIn, onLogout}) => {
+  const {notifications} = useNotifications();
   if(isLoggedIn){
     return (
       <>
@@ -21,6 +23,15 @@ const Header = ({isLoggedIn, onLogout}) => {
               </li>
               <li className="notifications">
                 <IoIosNotifications/>
+                {notifications.length > 0 && (
+                  <div className="notification-dropdown">
+                    {notifications.map((notification, index) => (
+                      <div key={index} className="notification-item">
+                        {notification.message}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </li>
               <li><Link to={"/profile"}>
                 <AiFillProfile/>

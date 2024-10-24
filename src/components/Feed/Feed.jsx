@@ -119,6 +119,13 @@ const Feed=()=>{
             })
     }
 
+    const notifyUser=async()=>{
+        apiClient.post(`/notify`,{
+            type:"post",
+            message:"A new post was created!"
+        });
+    };
+
     const handleCreatePost=()=>{
         const formData = new FormData();
         formData.append("title",postDetails.title);
@@ -139,6 +146,7 @@ const Feed=()=>{
                 setIsClicked(true);
                 toast.success(res.data.message);
                 setOpen(false);
+                notifyUser();
             }
         })
         .catch((err)=>{
@@ -146,7 +154,7 @@ const Feed=()=>{
         })
         .finally(()=>{
             setLoader(false);
-        })
+        });
     }
 
     const getUser=()=>{
