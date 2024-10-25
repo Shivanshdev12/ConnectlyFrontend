@@ -1,11 +1,11 @@
-import React, { useState }, { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { IoIosNotifications, IoMdMenu, IoIosLogOut, IoIosSearch, IoMdMenu, IoIosLogOut } from "react-icons/io";
+import { IoIosNotifications, IoMdMenu, IoIosLogOut, IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import "./Header.css";
 import useNotifications from '../../hooks/useNotifications';
 import { menuActions } from '../../features/menuSlice';
+import { AiFillProfile } from 'react-icons/ai';
 
 
 const Header = ({ isLoggedIn, onLogout }) => {
@@ -48,19 +48,6 @@ const Header = ({ isLoggedIn, onLogout }) => {
                 <Link to={"/profile"}>
                   <img src={user?.avatar} />
                 </Link>
-              </li>
-              <li className="header__logout">
-                <button onClick={onLogout}>
-                  <IoIosLogOut />
-                </button>
-              </li>
-              <li className="header__profile">
-                <Link to={"/profile"}>
-                  <AiFillProfile />
-              </Link>
-              </li>
-              <li className="avatar">
-                <img src={user?.avatar} />
               </li>
               <li className="header__logout">
                 <button onClick={onLogout}>
