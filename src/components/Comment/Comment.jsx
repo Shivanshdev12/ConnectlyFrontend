@@ -1,7 +1,7 @@
 import * as React from "react";
 import apiClient from "../../axiosConfig";
 import routes from "../../routes";
-import { FaTelegramPlane } from "react-icons/fa";
+import { PiTelegramLogo } from "react-icons/pi";
 import "../Comment/Comment.css";
 import "../Feed/Feed.css";
 
@@ -106,7 +106,7 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
                                             onChange={handleComment}
                                         />
                                         <span style={{ cursor: "pointer" }} onClick={(e) => addReplyHandler(e, comment._id)}>
-                                            <FaTelegramPlane />
+                                            <PiTelegramLogo />
                                         </span>
                                     </div>
                                 )}
@@ -128,7 +128,7 @@ const Comment = ({ post, addComment, index, onCommentAdded }) => {
                             onChange={handleComment}
                         />
                         <span onClick={(e) => addCommentHandler(e, post._id)}>
-                            <FaTelegramPlane />
+                            <PiTelegramLogo />
                         </span>
                     </div>
                 )}

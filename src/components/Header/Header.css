@@ -72,6 +72,10 @@ header .search input::placeholder{
 }
 
 header .notifications{
+    cursor: pointer;
+}
+
+header .notifications{
     position: relative;
 }
 
@@ -85,6 +89,34 @@ header .notifications::after{
     background-color: var(--danger);
     border-radius: 50%;
     content:""
+}
+
+header .notifications-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--ct-bg-success);
+    transform: translateX(-50%);
+    width: 180px;
+    margin-top: 10px;
+    border-radius: 5px;
+    z-index: 200;
+}
+
+header .notifications-menu ul{
+    padding: unset;
+    display: flex;
+    flex-direction: column;
+}
+
+header .notifications-menu li{
+    color: var(--ct-text-success);
+    font-size: var(--p);
+    padding: 10px;
+}
+
+header .notifications-menu .notification-menu__child{
+    border-bottom: 1px solid var(--ct-text-success);
 }
 
 header .avatar img{

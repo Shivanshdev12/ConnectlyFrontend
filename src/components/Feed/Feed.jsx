@@ -2,13 +2,8 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import apiClient from "../../axiosConfig";
 import routes from "../../routes";
-import { FaUserFriends, FaBookmark, FaRegComment } from "react-icons/fa";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import { BiSolidMessageRounded } from "react-icons/bi";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { IoIosAddCircle, IoMdMenu } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
-import { MdGroups } from "react-icons/md";
 import CreatePost from "../CreatePost/CreatePost";
 import { toast } from 'react-toastify';
 import Comment from "../Comment/Comment";
@@ -19,6 +14,7 @@ import "./Feed.css";
 import FollowList from "../FollowList/FollowList";
 import { menuActions } from "../../features/menuSlice";
 import useScreenSize from "../../hooks/useScreenSize";
+import { PiBookBookmark, PiListBold, PiMessengerLogo, PiNotePencil, PiThumbsUp, PiThumbsDown, PiUsers, PiUsersThree, PiMessengerLogoDuotone } from "react-icons/pi";
 
 const Feed=()=>{
 
@@ -125,10 +121,10 @@ const Feed=()=>{
             })
     }
 
-    const notifyUser=async()=>{
+    const notifyUser=async(type="",message="")=>{
         apiClient.post(`/notify`,{
-            type:"post",
-            message:"A new post was created!"
+            type,
+            message
         });
     };
 
@@ -153,7 +149,7 @@ const Feed=()=>{
                 toast.success(res.data.message);
                 dispatch(menuActions.openMenuState(false));
                 setOpen(false);
-                notifyUser();
+                notifyUser("post","A new post was created!");
             }
         })
         .catch((err)=>{
@@ -213,6 +209,7 @@ const Feed=()=>{
         .then((res)=>{
             if(res.data.success){
                 setIsClicked(true);
+                notifyUser("New connection","You connected with an user!");
                 toast.success(res.data.message);
             }
         })
@@ -223,36 +220,33 @@ const Feed=()=>{
 
     React.useEffect(()=>{
         getPosts();
+        getUser();
         return ()=>{
             setIsClicked(false);
         }
     },[isClicked]);
-
-    React.useEffect(()=>{
-        getUser();
-    },[]);
 
     return <React.Fragment>
         <main>
             {isMobile ? isOpen && <div className="container side_menu">
                 <div className="container__side">
                     <ul>
-                        <li className="container__side-header" onClick={menuHandler}><IoMdMenu/> <h1>Connectly</h1></li>
-                        <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
-                        <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
-                        <li><MdGroups/> Groups</li>
-                        <li><BiSolidMessageRounded/> Messages</li>
+                        <li className="container__side-header" onClick={menuHandler}><PiListBold /> <h1>Connectly</h1></li>
+                        <li onClick={handleModalOpen}><PiNotePencil/> Create Post</li>
+                        <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
+                        <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
+                        <li><PiUsersThree/> Groups</li>
+                        <li><PiMessengerLogo/> Messages</li>
                     </ul>
                 </div>
             </div> : <div className="container side_menu">
                 <div className="container__side">
                     <ul>
-                        <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
-                        <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
-                        <li><MdGroups/> Groups</li>
-                        <li><BiSolidMessageRounded/> Messages</li>
+                        <li onClick={handleModalOpen}><PiNotePencil /> Create Post</li>
+                        <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
+                        <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
+                        <li><PiUsersThree /> Groups</li>
+                        <li><PiMessengerLogo/> Messages</li>
                     </ul>
                 </div>
             </div>}
@@ -310,14 +304,14 @@ const Feed=()=>{
                                 <img src={post.image} alt={post.title} />
                             </div>
                             <div className="posts-para">
-                                <p><AiOutlineLike /> {post.likes} Likes</p>
+                                <p><PiThumbsUp /> {post.likes} Likes</p>
                                 <p>{post.comments?.length} Comments</p>
                             </div>
                             <div className="posts-panel">
-                                <button onClick={(e) => likeHandler(e, post._id)}><AiOutlineLike /> Like</button>
-                                <button onClick={(e) => dislikeHandler(e, post._id)}><AiOutlineDislike /> Dislike</button>
-                                <button onClick={(e) => commentHandler(e, index)}><FaRegComment/> Comments</button>
-                                <button onClick={(e)=> savePostHandler(e,post._id)}><IoBookmarkOutline/> Save</button>
+                                <button onClick={(e) => likeHandler(e, post._id)}><PiThumbsUp /> Like</button>
+                                <button onClick={(e) => dislikeHandler(e, post._id)}><PiThumbsDown /> Dislike</button>
+                                <button onClick={(e) => commentHandler(e, index)}><PiMessengerLogo /> Comments</button>
+                                <button onClick={(e)=> savePostHandler(e,post._id)}><PiBookBookmark /> Save</button>
                             </div>
                             {/* Comments */}
                             <Comment post={post} addComment={addComment} index={index} onCommentAdded={()=>setIsClicked(true)} />

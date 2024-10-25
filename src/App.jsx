@@ -62,7 +62,7 @@ function App() {
           <Route path="/following" element={<ProtectedRoute element={<FollowList/>}></ProtectedRoute>}></Route>
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer autoClose={5000} position="bottom-left" />
     </>
   );
 }
