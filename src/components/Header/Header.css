@@ -5,7 +5,7 @@ header{
     justify-content: space-between;
     padding:5px 20px;
     z-index: 1;
-    background-color: var(--ct-dark);
+    background-color: var(--ct-header-dark);
     color: var(--white);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -49,14 +49,12 @@ header .search{
     display: flex;
     border: 1px solid #a1a1a1;
     border-radius: 20px;
-    padding:0px 10px;
+    padding: 0px 0px 0px 10px;
 }
 
-/* header .search .search__icon{
-    background-color: #222;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-} */
+header .search .search__icon{
+    padding: 0px 5px;
+}
 
 header .search input{
     background-color: transparent;
@@ -74,6 +72,10 @@ header .search input::placeholder{
 }
 
 header .notifications{
+    cursor: pointer;
+}
+
+header .notifications{
     position: relative;
 }
 
@@ -87,6 +89,34 @@ header .notifications::after{
     background-color: var(--danger);
     border-radius: 50%;
     content:""
+}
+
+header .notifications-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--ct-bg-success);
+    transform: translateX(-50%);
+    width: 180px;
+    margin-top: 10px;
+    border-radius: 5px;
+    z-index: 200;
+}
+
+header .notifications-menu ul{
+    padding: unset;
+    display: flex;
+    flex-direction: column;
+}
+
+header .notifications-menu li{
+    color: var(--ct-text-success);
+    font-size: var(--p);
+    padding: 10px;
+}
+
+header .notifications-menu .notification-menu__child{
+    border-bottom: 1px solid var(--ct-text-success);
 }
 
 header .avatar img{

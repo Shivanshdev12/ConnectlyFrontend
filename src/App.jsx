@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import apiClient from "./axiosConfig";
 import routes from "./routes";
+import { useDispatch } from "react-redux";
+import { userActions } from "./features/userSlice";
 
 const ProtectedRoute = ({ element }) => {
   const token = Cookies.get('accessToken');
@@ -22,6 +24,7 @@ const ProtectedRoute = ({ element }) => {
 };
 
 function App() {
+  const dispatch = useDispatch();
   const [isLoggedIn, setLoggedIn] = React.useState(false);
   const navigate = useNavigate();
 
@@ -30,6 +33,7 @@ function App() {
     .then((res)=>{
       if(res.data.success){
         Cookies.remove("accessToken");
+        dispatch(userActions.clearUserState());
         toast.success(res.data.message);
         navigate("/login");
       }
@@ -62,7 +66,7 @@ function App() {
           <Route path="/following" element={<ProtectedRoute element={<FollowList/>}></ProtectedRoute>}></Route>
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer autoClose={5000} position="bottom-left" />
     </>
   );
 }
