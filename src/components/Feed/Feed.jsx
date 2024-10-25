@@ -6,7 +6,7 @@ import { FaUserFriends, FaBookmark, FaRegComment } from "react-icons/fa";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoMdMenu } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
 import { MdGroups } from "react-icons/md";
 import CreatePost from "../CreatePost/CreatePost";
@@ -17,12 +17,16 @@ import { userActions } from "../../features/userSlice";
 import { FidgetSpinner } from "react-loader-spinner";
 import "./Feed.css";
 import FollowList from "../FollowList/FollowList";
+import { menuActions } from "../../features/menuSlice";
+import useScreenSize from "../../hooks/useScreenSize";
 
 const Feed=()=>{
 
     const dispatch = useDispatch();
     const postDetails = useSelector((state)=>state.posts);
     const userId = useSelector((state)=>state.users.userId);
+    const isOpen = useSelector((state)=>state.menu.isOpen);
+    const isMobile = useScreenSize();
     const [loader, setLoader] = React.useState(false);
     const [isClicked, setIsClicked] = React.useState(false);
 
@@ -46,6 +50,8 @@ const Feed=()=>{
 
     const handleModalOpen=()=>setOpen(true);
     const handleModalClose=()=>setOpen(false);
+
+    const menuHandler=()=>dispatch(menuActions.openMenuState(false));
 
     const getPosts=()=>{
         setLoader(true);
@@ -145,6 +151,7 @@ const Feed=()=>{
             if(res.data.status === "success"){
                 setIsClicked(true);
                 toast.success(res.data.message);
+                dispatch(menuActions.openMenuState(false));
                 setOpen(false);
                 notifyUser();
             }
@@ -227,10 +234,10 @@ const Feed=()=>{
 
     return <React.Fragment>
         <main>
-            <div className="container side_menu">
+            {isMobile ? isOpen && <div className="container side_menu">
                 <div className="container__side">
                     <ul>
-                        <li className="avatar"><img src={user?.avatar}/> {user.firstName} {user.lastName}</li>
+                        <li className="container__side-header" onClick={menuHandler}><IoMdMenu/> <h1>Connectly</h1></li>
                         <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
                         <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
                         <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
@@ -238,7 +245,17 @@ const Feed=()=>{
                         <li><BiSolidMessageRounded/> Messages</li>
                     </ul>
                 </div>
-            </div>
+            </div> : <div className="container side_menu">
+                <div className="container__side">
+                    <ul>
+                        <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
+                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
+                        <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
+                        <li><MdGroups/> Groups</li>
+                        <li><BiSolidMessageRounded/> Messages</li>
+                    </ul>
+                </div>
+            </div>}
             <div className="container container__posts-flex">
                 {Array.isArray(posts) && posts.map((post, index) => {
                     return <div className="col-sm-7" key={index}>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState }, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IoIosNotifications, IoMdMenu, IoIosLogOut, IoIosSearch } from "react-icons/io";
+import { useSelector, useDispatch } from 'react-redux';
+import { IoIosNotifications, IoMdMenu, IoIosLogOut, IoIosSearch, IoMdMenu, IoIosLogOut } from "react-icons/io";
 import { Link } from 'react-router-dom';
-import { IoIosLogOut } from "react-icons/io";
 import "./Header.css";
 import useNotifications from '../../hooks/useNotifications';
+import { menuActions } from '../../features/menuSlice';
 
 
 const Header = ({ isLoggedIn, onLogout }) => {
@@ -26,6 +27,9 @@ const Header = ({ isLoggedIn, onLogout }) => {
     return (
       <>
         <header>
+          <div className="header__menu" onClick={menuHandler}>
+            <IoMdMenu/>
+          </div>
           <h1>Connectly</h1>
           <nav>
             <ul>
@@ -38,7 +42,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
                 </div>
               </li>
               <li className="notifications" onClick={notificationsHandler}>
-                <IoIosNotifications />
+                <IoIosNotifications  />
               </li>
               <li className="avatar">
                 <Link to={"/profile"}>
@@ -50,12 +54,25 @@ const Header = ({ isLoggedIn, onLogout }) => {
                   <IoIosLogOut />
                 </button>
               </li>
+              <li className="header__profile">
+                <Link to={"/profile"}>
+                  <AiFillProfile />
+              </Link>
+              </li>
+              <li className="avatar">
+                <img src={user?.avatar} />
+              </li>
+              <li className="header__logout">
+                <button onClick={onLogout}>
+                  <IoIosLogOut />
+                </button>
+              </li>
             </ul>
           </nav>
         </header>
       </>
     );
-  }else{
+  } else {
     return null;
   }
 };
