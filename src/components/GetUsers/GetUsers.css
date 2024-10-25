@@ -1,0 +1,35 @@
+.allUser-header{
+    color: #a8a8a8;
+    font-weight: 600;
+}
+
+.allUser-body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 80%;
+    width: 70%;
+    margin: 20px 0px;
+}
+
+.allUser-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.allUser-list img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0px 20px 0px 0px;
+}
+
+.allUser-list span{
+    font-size: var(--p);
+}
+
+.text-primary{
+    color: var(--ct-text-primary);
+    font-size: var(--p);
+}

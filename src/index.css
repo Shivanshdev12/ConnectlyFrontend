@@ -17,7 +17,6 @@
   --ct-side-dark:#121212;
   --ct-dark:#212121;
   --ct-text-primary:#0095F6;
-  --text-primary:#1f1f1f;
   --text-placeholder:#ffffffb0;
   --ct-bg-success:#DEFBE6;
   --ct-text-success:#2AA54D;
@@ -45,9 +44,9 @@ body {
   color: var(--danger) !important;
 }
 
-.posts-user span.text-primary{
+/* .posts-user span.text-primary{
   color: var(--ct-text-primary) !important;
-}
+} */
 
 .btn-trans{
   background-color: var(--light);

@@ -15,6 +15,7 @@ import FollowList from "../FollowList/FollowList";
 import { menuActions } from "../../features/menuSlice";
 import useScreenSize from "../../hooks/useScreenSize";
 import { PiBookBookmark, PiListBold, PiMessengerLogo, PiNotePencil, PiThumbsUp, PiThumbsDown, PiUsers, PiUsersThree, PiMessengerLogoDuotone } from "react-icons/pi";
+import GetUsers from "../GetUsers/GetUsers";
 
 const Feed=()=>{
 
@@ -252,7 +253,7 @@ const Feed=()=>{
             </div>}
             <div className="container container__posts-flex">
                 {Array.isArray(posts) && posts.map((post, index) => {
-                    return <div className="col-sm-7" key={index}>
+                    return <div className="col-sm-10" key={index}>
                         <div className="posts">
 
                             <div className="posts-user">
@@ -318,6 +319,9 @@ const Feed=()=>{
                         </div>
                     </div>
                 })}
+            </div>
+            <div className="container user__suggestions">
+                <GetUsers/>
             </div>
         </main>
 
