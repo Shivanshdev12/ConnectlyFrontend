@@ -13,7 +13,10 @@
   --grey:#555;
   --light:#a1a1a1;
   --white:#fff;
-  --ct-dark:#0f0f0f;
+  --ct-header-dark:#171717;
+  --ct-side-dark:#121212;
+  --ct-dark:#212121;
+  --ct-text-primary:#0095F6;
   --text-primary:#1f1f1f;
   --text-placeholder:#ffffffb0;
 }
@@ -45,6 +48,10 @@ body {
 
 .error{
   color: var(--danger) !important;
+}
+
+.text-primary{
+  color: var(--ct-text-primary) !important;
 }
 
 .btn-trans{

@@ -1,15 +1,28 @@
-import React from 'react';
-import { IoIosNotifications } from "react-icons/io";
-import { AiFillProfile } from "react-icons/ai";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { IoIosNotifications, IoMdMenu, IoIosLogOut, IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { IoIosLogOut } from "react-icons/io";
 import "./Header.css";
 import useNotifications from '../../hooks/useNotifications';
 
 
-const Header = ({isLoggedIn, onLogout}) => {
-  const {notifications} = useNotifications();
-  if(isLoggedIn){
+const Header = ({ isLoggedIn, onLogout }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state)=>state.users.userId);
+  const [isOpen, setIsOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  const menuHandler=()=>{
+    setIsOpen(!isOpen);
+    dispatch(menuActions.openMenuState(!isOpen));
+  }
+
+  const notificationsHandler=()=>{
+    setNotificationsOpen(!notificationsOpen);
+  }
+
+  if (isLoggedIn) {
     return (
       <>
         <header>
@@ -18,27 +31,25 @@ const Header = ({isLoggedIn, onLogout}) => {
             <ul>
               <li>
                 <div className="search">
-                  <input type="text" placeholder="🔍 Search here..."/>
+                  <input type="text" placeholder="Search here..." />
+                  <span className="search__icon">
+                    <IoIosSearch/>
+                  </span>
                 </div>
               </li>
-              <li className="notifications">
-                <IoIosNotifications/>
-                {notifications.length > 0 && (
-                  <div className="notification-dropdown">
-                    {notifications.map((notification, index) => (
-                      <div key={index} className="notification-item">
-                        {notification.message}
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <li className="notifications" onClick={notificationsHandler}>
+                <IoIosNotifications />
               </li>
-              <li><Link to={"/profile"}>
-                <AiFillProfile/>
-              </Link></li>
-              <li><button onClick={onLogout}>
-                <IoIosLogOut/>  
-              </button></li>
+              <li className="avatar">
+                <Link to={"/profile"}>
+                  <img src={user?.avatar} />
+                </Link>
+              </li>
+              <li className="header__logout">
+                <button onClick={onLogout}>
+                  <IoIosLogOut />
+                </button>
+              </li>
             </ul>
           </nav>
         </header>

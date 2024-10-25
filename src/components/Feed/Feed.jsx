@@ -261,9 +261,9 @@ const Feed=()=>{
                                                 {post.userId._id !== userId._id ? (
                                                     // Check if the post user is already in the current user's following list
                                                     userId.following.includes(post.userId._id) ? (
-                                                        <span> : Following</span>
+                                                        <span className="text-primary"> : Following</span>
                                                     ) : (
-                                                        <span onClick={(e) => followUserHandler(e, post.userId._id)}> : Follow</span>
+                                                        <span className="text-primary" onClick={(e) => followUserHandler(e, post.userId._id)}> : Follow</span>
                                                     )
                                                 ) : null}
                                             </p>
