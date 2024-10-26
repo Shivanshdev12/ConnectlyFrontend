@@ -5,8 +5,6 @@ import routes from "../../routes";
 import "./FollowList.css";
 
 const FollowList=({open, handleModalOpen, handleModalClose})=>{
-    const [loader, setLoader] = React.useState(false);
-    const [isClicked, setIsClicked] = React.useState(false);
     const [followingList, setFollowingList] = React.useState([]);
 
     const getFollowingforUser=()=>{
@@ -14,7 +12,6 @@ const FollowList=({open, handleModalOpen, handleModalClose})=>{
         .then((res)=>{
             if(res.data.success){
                 const {followingList} = res.data.data;
-                setLoader(false);
                 setFollowingList(followingList.following);
             }
         })

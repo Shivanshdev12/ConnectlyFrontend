@@ -17,6 +17,7 @@ import apiClient from "./axiosConfig";
 import routes from "./routes";
 import { useDispatch } from "react-redux";
 import { userActions } from "./features/userSlice";
+import Message from "./components/Message/Message";
 
 const ProtectedRoute = ({ element }) => {
   const token = Cookies.get('accessToken');
@@ -32,9 +33,9 @@ function App() {
     apiClient.post(`${routes.AUTH.LOGOUT}`,{},{withCredentials:true})
     .then((res)=>{
       if(res.data.success){
-        Cookies.remove("accessToken");
         dispatch(userActions.clearUserState());
         toast.success(res.data.message);
+        Cookies.remove("accessToken");
         navigate("/login");
       }
     })
@@ -64,6 +65,8 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}></Route>
           <Route path="/saved" element={<ProtectedRoute element={<SavedPost/>}/>}></Route>
           <Route path="/following" element={<ProtectedRoute element={<FollowList/>}></ProtectedRoute>}></Route>
+          <Route path="/message" element={<ProtectedRoute element={<Message/>}/>}></Route>
+          <Route path="*" element={<Navigate to="/feed" replace />} />
         </Route>
       </Routes>
       <ToastContainer autoClose={5000} position="bottom-left" />
