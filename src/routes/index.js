@@ -4,6 +4,7 @@ const routes = {
         REGISTER:"/users/register",
         LOGOUT:"/users/logout",
         GET_USER:"/users/getUser",
+        GET_ALL_USERS:"/users/getAllUser",
         ADD_COVER_IMAGE:"/users/add-cover-image",
         FOLLOW_USER:"/users/follow-user",
         GET_FOLLOWING_USER:"/users/get-following-list",

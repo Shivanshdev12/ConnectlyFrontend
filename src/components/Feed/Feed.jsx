@@ -2,13 +2,8 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import apiClient from "../../axiosConfig";
 import routes from "../../routes";
-import { FaUserFriends, FaBookmark, FaRegComment } from "react-icons/fa";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import { BiSolidMessageRounded } from "react-icons/bi";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { IoIosAddCircle, IoMdMenu } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
-import { MdGroups } from "react-icons/md";
 import CreatePost from "../CreatePost/CreatePost";
 import { toast } from 'react-toastify';
 import Comment from "../Comment/Comment";
@@ -19,6 +14,8 @@ import "./Feed.css";
 import FollowList from "../FollowList/FollowList";
 import { menuActions } from "../../features/menuSlice";
 import useScreenSize from "../../hooks/useScreenSize";
+import { PiBookBookmark, PiListBold, PiMessengerLogo, PiNotePencil, PiThumbsUp, PiThumbsDown, PiUsers, PiUsersThree, PiMessengerLogoDuotone } from "react-icons/pi";
+import GetUsers from "../GetUsers/GetUsers";
 
 const Feed=()=>{
 
@@ -31,15 +28,7 @@ const Feed=()=>{
     const [isClicked, setIsClicked] = React.useState(false);
 
     const [user, setUser] = React.useState({});
-    const [posts, setPosts] = React.useState([{
-            title:"",
-            description:"",
-            likes:0,
-            dislikes:0,
-            image:"",
-            comments:[]
-        }
-    ]);
+    const [posts, setPosts] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [openMenu, setOpenMenu] = React.useState([]);
     const [addComment, setAddComment] = React.useState([]);
@@ -125,6 +114,13 @@ const Feed=()=>{
             })
     }
 
+    const notifyUser=async(type="",message="")=>{
+        apiClient.post(`/notify`,{
+            type,
+            message
+        });
+    };
+
     const handleCreatePost=()=>{
         const formData = new FormData();
         formData.append("title",postDetails.title);
@@ -146,6 +142,7 @@ const Feed=()=>{
                 toast.success(res.data.message);
                 dispatch(menuActions.openMenuState(false));
                 setOpen(false);
+                notifyUser("post","A new post was created!");
             }
         })
         .catch((err)=>{
@@ -153,7 +150,7 @@ const Feed=()=>{
         })
         .finally(()=>{
             setLoader(false);
-        })
+        });
     }
 
     const getUser=()=>{
@@ -205,6 +202,7 @@ const Feed=()=>{
         .then((res)=>{
             if(res.data.success){
                 setIsClicked(true);
+                notifyUser("New connection","You connected with an user!");
                 toast.success(res.data.message);
             }
         })
@@ -215,42 +213,39 @@ const Feed=()=>{
 
     React.useEffect(()=>{
         getPosts();
+        getUser();
         return ()=>{
             setIsClicked(false);
         }
     },[isClicked]);
-
-    React.useEffect(()=>{
-        getUser();
-    },[]);
 
     return <React.Fragment>
         <main>
             {isMobile ? isOpen && <div className="container side_menu">
                 <div className="container__side">
                     <ul>
-                        <li className="container__side-header" onClick={menuHandler}><IoMdMenu/> <h1>Connectly</h1></li>
-                        <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
-                        <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
-                        <li><MdGroups/> Groups</li>
-                        <li><BiSolidMessageRounded/> Messages</li>
+                        <li className="container__side-header" onClick={menuHandler}><PiListBold /> <h1>Connectly</h1></li>
+                        <li onClick={handleModalOpen}><PiNotePencil/> Create Post</li>
+                        <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
+                        <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
+                        <li><PiUsersThree/> Groups</li>
+                        <li><PiMessengerLogo/> Messages</li>
                     </ul>
                 </div>
             </div> : <div className="container side_menu">
                 <div className="container__side">
                     <ul>
-                        <li onClick={handleModalOpen}><IoIosAddCircle/> Create Post</li>
-                        <li onClick={handleFollowModalOpen}><FaUserFriends/> Following</li>
-                        <li><FaBookmark/> <Link to={"/saved"}> Saved</Link></li>
-                        <li><MdGroups/> Groups</li>
-                        <li><BiSolidMessageRounded/> Messages</li>
+                        <li onClick={handleModalOpen}><PiNotePencil /> Create Post</li>
+                        <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
+                        <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
+                        <li><PiUsersThree /> Groups</li>
+                        <li><PiMessengerLogo/> Messages</li>
                     </ul>
                 </div>
             </div>}
             <div className="container container__posts-flex">
-                {Array.isArray(posts) && posts.map((post, index) => {
-                    return <div className="col-sm-7" key={index}>
+                {Array.isArray(posts) && posts.length>0? posts.map((post, index) => {
+                    return <div className="col-sm-10" key={index}>
                         <div className="posts">
 
                             <div className="posts-user">
@@ -270,9 +265,9 @@ const Feed=()=>{
                                                 {post.userId._id !== userId._id ? (
                                                     // Check if the post user is already in the current user's following list
                                                     userId.following.includes(post.userId._id) ? (
-                                                        <span> : Following</span>
+                                                        <span className="text-primary"> : Following</span>
                                                     ) : (
-                                                        <span onClick={(e) => followUserHandler(e, post.userId._id)}> : Follow</span>
+                                                        <span className="text-primary" onClick={(e) => followUserHandler(e, post.userId._id)}> : Follow</span>
                                                     )
                                                 ) : null}
                                             </p>
@@ -302,20 +297,23 @@ const Feed=()=>{
                                 <img src={post.image} alt={post.title} />
                             </div>
                             <div className="posts-para">
-                                <p><AiOutlineLike /> {post.likes} Likes</p>
+                                <p><PiThumbsUp /> {post.likes} Likes</p>
                                 <p>{post.comments?.length} Comments</p>
                             </div>
                             <div className="posts-panel">
-                                <button onClick={(e) => likeHandler(e, post._id)}><AiOutlineLike /> Like</button>
-                                <button onClick={(e) => dislikeHandler(e, post._id)}><AiOutlineDislike /> Dislike</button>
-                                <button onClick={(e) => commentHandler(e, index)}><FaRegComment/> Comments</button>
-                                <button onClick={(e)=> savePostHandler(e,post._id)}><IoBookmarkOutline/> Save</button>
+                                <button onClick={(e) => likeHandler(e, post._id)}><PiThumbsUp /> Like</button>
+                                <button onClick={(e) => dislikeHandler(e, post._id)}><PiThumbsDown /> Dislike</button>
+                                <button onClick={(e) => commentHandler(e, index)}><PiMessengerLogo /> Comments</button>
+                                <button onClick={(e)=> savePostHandler(e,post._id)}><PiBookBookmark /> Save</button>
                             </div>
                             {/* Comments */}
                             <Comment post={post} addComment={addComment} index={index} onCommentAdded={()=>setIsClicked(true)} />
                         </div>
                     </div>
-                })}
+                }) : <div className="col-sm-10">No new posts found!</div>}
+            </div>
+            <div className="container user__suggestions">
+                <GetUsers/>
             </div>
         </main>
 

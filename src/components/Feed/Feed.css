@@ -1,12 +1,13 @@
 main{
     display: grid;
-    grid-template-columns: 0.75fr 4fr;
+    grid-template-columns: 1fr 3fr 1.5fr;
     gap: 10px;
 }
 
 .container.side_menu{
     padding-top: 20px;
     border-right: 1px solid #a1a1a161;
+    background-color: var(--ct-side-dark);
 }
 
 .container__side ul{
@@ -71,7 +72,7 @@ main{
 
 .container .posts-user span{
     font-size: var(--heading-4) !important;
-    color: var(--primary) !important;
+    /* color: var(--primary) !important; */
     font-weight: 600;
     cursor: pointer;
 }
@@ -120,7 +121,12 @@ main{
 .container__posts-flex{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
+    padding-top: 20px;
+}
+
+.container.user__suggestions{
     padding-top: 20px;
 }
 
@@ -221,4 +227,7 @@ main{
     .container__side-header{
         border-bottom: 1px solid var(--light);
     }
+    .container.user__suggestions{
+        display: none;
+    }    
 }

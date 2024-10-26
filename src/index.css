@@ -13,13 +13,26 @@
   --grey:#555;
   --light:#a1a1a1;
   --white:#fff;
-  --ct-dark:#0f0f0f;
-  --text-primary:#1f1f1f;
+  --ct-header-dark:#171717;
+  --ct-side-dark:#121212;
+  --ct-dark:#212121;
+  --ct-text-primary:#0095F6;
   --text-placeholder:#ffffffb0;
+  --ct-bg-success:#DEFBE6;
+  --ct-text-success:#2AA54D;
+  --ct-bg-danger:#fbdede
 }
 
 #root{
-  height: 100%;
+  height: 100vh;
+}
+
+header{
+  height: 10%;
+}
+
+main{
+  height: 90%;
 }
 
 body {
@@ -38,6 +51,10 @@ body {
 .error{
   color: var(--danger) !important;
 }
+
+/* .posts-user span.text-primary{
+  color: var(--ct-text-primary) !important;
+} */
 
 .btn-trans{
   background-color: var(--light);
@@ -162,6 +179,18 @@ body {
 .post-btn {
   background-color: #28a745;
   color: white;
+}
+
+.Toastify__toast--success{
+  min-height: unset;
+  background: var(--ct-bg-success);
+  color: var(--ct-text-success);
+}
+
+.Toastify__toast--error{
+  min-height: unset;
+  background: var(--ct-bg-danger);
+  color: var(--danger);
 }
 
 @media screen and (max-width:768px) {

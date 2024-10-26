@@ -10,6 +10,10 @@ const Profile = () => {
     const [user, setUser] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([]);
     const [coverImage, setCoverImage] = React.useState("");
+    const [bio, setBio] = React.useState({
+        isVisible:false,
+        content:""
+    });
     const [isClicked, setIsClicked] = React.useState(false);
 
     const getUserDetails = () => {
@@ -57,6 +61,20 @@ const Profile = () => {
         })
     }
 
+    const bioHandler=()=>{
+        setBio({
+            ...bio,
+            isVisible:true
+        })
+    }
+
+    const handleDetails=(e)=>{
+        setBio({
+            ...bio,
+            content:e.target.value
+        })
+    }
+
     React.useEffect(()=>{
         getUserDetails();
         return ()=>{
@@ -92,21 +110,23 @@ const Profile = () => {
                         </div>
                         <div>
                             <h1>{user.firstName} {user.lastName}</h1>
-                            <p>Followers : {!user.follower ? 0 : user.follower.length}</p>
-                            <p>Following : {!user.following ? 0 : user.following.length}</p>
+                            <p>Followers : {!user.followers ? 0 : user?.followers?.length}</p>
+                            <p>Following : {!user.following ? 0 : user?.following?.length}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="row justifyCenter">
                 <div className="col-sm-3">
-                    <div className="profile_intro">
-                        <h3>Intro</h3>
-                        <button className="btn btn-secondary mb-2">Add Bio</button>
-                        <p>Studied at JSS Academy of Technical education, Noida</p>
-                        <p>Lives in, Noida</p>
-                        <p>Joined on  {user.createdAt}</p>
-                        <button className="btn btn-secondary">Edit Details</button>
+                    <div className="profile_intro form-group">
+                        <h3>Bio</h3>
+                        {bio.isVisible && <textarea name="bio" 
+                        value={bio.content} 
+                        onChange={handleDetails} 
+                        placeholder="Add your bio here.." 
+                        rows={5}
+                        style={{resize:"none",width:"100%"}}  />}
+                        <button onClick={bioHandler} className="btn btn-secondary mb-2">Add Bio</button>
                     </div>
                 </div>
                 <div className="col-sm-7">
