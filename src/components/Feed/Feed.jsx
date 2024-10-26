@@ -229,7 +229,7 @@ const Feed=()=>{
                         <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
                         <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
                         <li><PiUsersThree/> Groups</li>
-                        <li><PiMessengerLogo/> Messages</li>
+                        <li><PiMessengerLogo/> <Link to={"/message"}>Messages</Link></li>
                     </ul>
                 </div>
             </div> : <div className="container side_menu">
@@ -239,7 +239,7 @@ const Feed=()=>{
                         <li onClick={handleFollowModalOpen}><PiUsers/> Following</li>
                         <li><PiBookBookmark/> <Link to={"/saved"}> Saved</Link></li>
                         <li><PiUsersThree /> Groups</li>
-                        <li><PiMessengerLogo/> Messages</li>
+                        <li><PiMessengerLogo/> <Link to={"/message"}>Messages</Link></li>
                     </ul>
                 </div>
             </div>}

@@ -1,0 +1,151 @@
+.message__container{
+    display: grid;
+    grid-template-columns: 0.75fr 3fr;
+    gap: unset;
+}
+
+.message__users{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    border-right: 1px solid #a1a1a161;
+    background-color: var(--ct-side-dark);
+    gap: 10px;
+}
+
+.message__avatar{
+    border-bottom: 1px solid #a1a1a161;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.message__avatar img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #a1a1a1;
+}
+
+.select{
+    background-color: #fff;
+    color: #000;
+}
+
+.message__body-header{
+    border-bottom: 1px solid #a1a1a161;
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.message__body-header img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* Container for the chat body */
+.message__body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 100%;
+    background-color: var(--bg-color);
+    overflow: hidden;
+}
+
+/* Header with user's avatar and name */
+.message__body-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--ct-side-dark);
+    color: white;
+    font-weight: bold;
+}
+
+.message__body-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message__body-header span {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Message body area with scrollable content */
+.message__body-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    gap: 10px;
+}
+
+/* Receiver message styling */
+.message__body-receiver {
+    background-color: var(--ct-side-dark);
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    color: white;
+}
+
+/* Sender message styling */
+.message__body-sender {
+    background-color: var(--primary);
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    color: white;
+    align-self: flex-end; /* Aligns sender's messages to the right */
+}
+
+/* Removes default margin from paragraph in messages */
+.message__body-receiver p,
+.message__body-sender p {
+    margin-bottom: unset;
+}
+
+/* Input area for sending new messages */
+.message__body-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid var(--ct-border);
+    background-color: var(--bg-color);
+}
+
+.message__body-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.message__body-input input::placeholder {
+    color: var(--placeholder-color);
+}
+
+/* Icon styling for send button */
+.message__body-input span {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.message__body-input span:hover {
+    color: var(--primary-hover);
+}
