@@ -26,15 +26,17 @@ const GetUsers=()=>{
         <span className="allUser-header">User suggestions</span>
         <div className="allUser-body">
             {allUsers.map((each)=>{
-                return <div className="allUser-list">
-                    <div>
-                        <img src={each.avatar} alt={each.firstName} />
-                        <span>{each.firstName} {each.lastName}</span>
+                if(each._id !== user._id){
+                    return <div className="allUser-list" key={each._id}>
+                        <div>
+                            <img src={each.avatar} alt={each.firstName} />
+                            <span>{each.firstName} {each.lastName}</span>
+                        </div>
+                        <div className="text-primary">
+                            Follow
+                        </div>
                     </div>
-                    <div className="text-primary">
-                        Follow
-                    </div>
-                </div>
+                }
             })}
         </div>
     </React.Fragment>

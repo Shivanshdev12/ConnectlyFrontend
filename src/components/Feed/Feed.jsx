@@ -28,15 +28,7 @@ const Feed=()=>{
     const [isClicked, setIsClicked] = React.useState(false);
 
     const [user, setUser] = React.useState({});
-    const [posts, setPosts] = React.useState([{
-            title:"",
-            description:"",
-            likes:0,
-            dislikes:0,
-            image:"",
-            comments:[]
-        }
-    ]);
+    const [posts, setPosts] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [openMenu, setOpenMenu] = React.useState([]);
     const [addComment, setAddComment] = React.useState([]);
@@ -252,7 +244,7 @@ const Feed=()=>{
                 </div>
             </div>}
             <div className="container container__posts-flex">
-                {Array.isArray(posts) && posts.map((post, index) => {
+                {Array.isArray(posts) && posts.length>0? posts.map((post, index) => {
                     return <div className="col-sm-10" key={index}>
                         <div className="posts">
 
@@ -318,7 +310,7 @@ const Feed=()=>{
                             <Comment post={post} addComment={addComment} index={index} onCommentAdded={()=>setIsClicked(true)} />
                         </div>
                     </div>
-                })}
+                }) : <div className="col-sm-10">No new posts found!</div>}
             </div>
             <div className="container user__suggestions">
                 <GetUsers/>
