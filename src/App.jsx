@@ -64,6 +64,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute element={<Profile/>}/>}></Route>
           <Route path="/saved" element={<ProtectedRoute element={<SavedPost/>}/>}></Route>
           <Route path="/following" element={<ProtectedRoute element={<FollowList/>}></ProtectedRoute>}></Route>
+          <Route path="*" element={<Navigate to="/feed" replace />} />
         </Route>
       </Routes>
       <ToastContainer autoClose={5000} position="bottom-left" />
